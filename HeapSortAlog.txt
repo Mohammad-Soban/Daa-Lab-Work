@@ -1,0 +1,55 @@
+----> Algorithm for max heapify
+
+Max_Heapify(A, i)
+{
+    l = 2i
+    r = 2i + 1 
+    if l <= A.heap_size and A[l] > A[i]
+    {
+        largest = l
+    } else {
+        largest = i
+    }
+
+    if r <= A.heap_size and A[r] > A[largest]
+    {
+        largest = r
+    }
+
+    if largest != i
+    {
+        exchange A[i] with A[largest]
+        Max_Heapify(A, largest)
+    }
+}
+
+
+
+
+-----> Algorith for Building a max heap
+
+Build_Max_Heap(A)
+{
+    A.heap_size = A.length
+    for i = floor(A.length/2) to 0
+    {
+        Max_Heapify(A, i)
+    }
+}
+
+-----> Algorithm for Heap Sort
+Heap_external_Maximum(array){
+
+    if(array.heap_size < 1){
+        error "heap underflow"
+    }
+
+    else{
+        max = array[0];
+        arr[0] = arr[array.heap_size - 1];
+        array.heap_size = array.heap_size - 1;
+
+        Max_Heapify(array, 0);
+        return max;
+    }
+}

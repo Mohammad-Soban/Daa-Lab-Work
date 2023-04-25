@@ -40,7 +40,40 @@ Build_Max_Heap(A)
 }
 */
 
-// C language Code for performing Max_Heapify and Build_Max_Heap...
+
+/* Algorithm for Heap Sort --- 
+
+Heap_external_Maximum(array){
+
+if(array.heap_size < 1){
+    error "heap underflow"
+}
+
+else{
+    max = array[0];
+    arr[0] = arr[array.heap_size - 1];
+    array.heap_size = array.heap_size - 1;
+
+    Max_Heapify(array, 0);
+    return max;
+}
+
+}*/
+
+
+// Heap Sort Algorithm
+/*
+Heap_Sort(int arr){
+    Build_Max_Heap(arr);
+    for i = arr.length to 1
+    {
+        exchange arr[0] with arr[i]
+        arr.heap_size = arr.heap_size - 1
+        Max_Heapify(arr, 0)
+    }
+}
+*/ 
+
 
 
 #include <stdio.h>
@@ -70,29 +103,63 @@ void Max_Heapify(int arr[], int i, int length){
         arr[largest] = temp;
         Max_Heapify(arr, largest, length);
     }
-
 }
 
 void Build_Max_Heap(int arr[], int length){
     int heap_size = length;
-
     for (int i = floor(length/2); i >= 0; i--)
     {
         Max_Heapify(arr, i, length);
-    }
-    
+    }    
+}   
+
+int Heap_Extract_Max(int arr[], int length){
+    int max = arr[0];
+    arr[0] = arr[length - 1];
+    length = length - 1;
+    Max_Heapify(arr, 0, length);
+    return max;
 }
+
+// Function to perform Heap Sort.
+void Heap_Sort(int array[], int length){
+    Build_Max_Heap(array, length);
+    for (int i = length - 1; i >= 1; i--)
+    {
+        int temp = array[0];
+        array[0] = array[i];
+        array[i] = temp;
+        length = length - 1;
+        Max_Heapify(array, 0, length);
+    }   
+}
+
+void InsertElement(int element, int arr[]){
+    int length = sizeof(arr)/sizeof(arr[0]);
+    arr[length] = element;
+    Build_Max_Heap(arr, length);
+}
+
 
 int main()
 {
-    int arr[] = {0, 4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
-    int length = sizeof(arr)/sizeof(arr[0]);
+    int length;
+    printf("Enter the number of elements you want to enter");
+    scanf("%d", &length);
+    int arr[length];
 
-    Build_Max_Heap(arr, length);
-
-    for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++)
+    for (int i = 0; i < length; i++)
     {
-        printf("%d ", arr[i]);
+        printf("Enter the %d element of the array:- ", i);
+        scanf("%d", &arr[i]);
     }
+      
+    Heap_Sort(arr, length);
+
+    for (int i = 0; i < length; i++)
+    {
+        printf("%d - ", arr[i]);
+    }
+
     return 0;
 }
